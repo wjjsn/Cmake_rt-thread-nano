@@ -68,3 +68,9 @@ void rt_hw_board_init()
     rt_console_set_device(RT_CONSOLE_DEVICE_NAME);
 #endif
 }
+#include <stddef.h>
+void *_sbrk(ptrdiff_t incr)
+{
+    (void)incr;
+    return (void *)-1;  
+}
