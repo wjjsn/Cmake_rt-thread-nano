@@ -30,7 +30,7 @@ extern int Image$$RW_IRAM1$$ZI$$Limit;
 #define HEAP_BEGIN                      (__segment_end("HEAP"))
 #else
 extern int __bss_end;
-#define HEAP_BEGIN                      (&__bss_end)
+#define HEAP_BEGIN                      ((void *)((char *)&__bss_end + 32 * 1024))
 #endif
 
 #define HEAP_END                        HC32_SRAM_END
