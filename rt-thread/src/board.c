@@ -10,8 +10,7 @@
  */
 
 #include "board.h"
-
-
+#include "rtdef.h"
 
 /**
   * @brief  This function is executed in case of error occurrence.
@@ -46,8 +45,9 @@ void SysTick_Handler(void)
 }
 
 /**
- * This function will initial HC32 board.
+ * This function will initial GD32 board.
  */
+static rt_uint8_t HEAP[1024 * 3]; /*使用数组做堆,建议至少3K空间*/
 void rt_hw_board_init()
 {
     extern void hardware_init(void);
@@ -56,7 +56,7 @@ void rt_hw_board_init()
     /* Heap initialization */
 #if defined(RT_USING_HEAP)
     //rt_system_heap_init(rt_heap_begin_get(), rt_heap_end_get());
-    rt_system_heap_init((void *)HEAP_BEGIN, (void *)HEAP_END);
+	rt_system_heap_init((void *)&HEAP[0], (void *)&HEAP[sizeof(HEAP) - 1]);
 #endif
 
     /* Board underlying hardware initialization */

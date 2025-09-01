@@ -13,14 +13,10 @@
 #define __BOARD_H__
 
 #include <rtthread.h>
-//#include "hc32_ll.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#define HC32_SRAM_SIZE                  (512)
-#define HC32_SRAM_END                   (0x1FFE0000 + HC32_SRAM_SIZE * 1024)
 
 #ifdef __ARMCC_VERSION
 extern int Image$$RW_IRAM1$$ZI$$Limit;
@@ -29,11 +25,10 @@ extern int Image$$RW_IRAM1$$ZI$$Limit;
 #pragma section="HEAP"
 #define HEAP_BEGIN                      (__segment_end("HEAP"))
 #else
-extern int __bss_end;
-#define HEAP_BEGIN                      ((void *)((char *)&__bss_end + 32 * 1024))
+// extern int __bss_end;
+// #define HEAP_BEGIN                      ((void *)((char *)&__bss_end + 32 * 1024))
+// #define HEAP_END                        HC32_SRAM_END
 #endif
-
-#define HEAP_END                        HC32_SRAM_END
 
 #ifdef __cplusplus
 }
